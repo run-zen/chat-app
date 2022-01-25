@@ -12,7 +12,7 @@ export function SocketsProvider({children, id}) {
     const [socket, setSocket] = useState()
 
     useEffect(() => {
-        const newSocket = io('http://localhost:5000', {query: {id}})
+        const newSocket = io('https://runzen-chat-api.herokuapp.com/', {query: {id}})
 
         setSocket(newSocket)
 

@@ -20,10 +20,10 @@ export default function SideBar({id}) {
     }
 
     return (
-        <div style={{maxWidth: '250px', width: 'fit-content'}} className={'d-flex flex-column'}>
+        <div style={{maxWidth: '250px', width: '250px'}} className={'d-flex flex-column'}>
             <Tab.Container activeKey={activeKey} onSelect={setActiveKey}>
-                <Nav variant={'tabs'} className={'justify-content-center'}>
-                    <Nav.Item>
+                <Nav variant={'tabs'} className={'justify-content-center'} style={{width:'250px'}}>
+                    <Nav.Item style={{flex:1}}>
                         <Nav.Link eventKey={CONVERSATIONS_KEY}>Conversions</Nav.Link>
                     </Nav.Item>
                     <Nav.Item>

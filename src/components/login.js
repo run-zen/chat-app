@@ -5,20 +5,29 @@ import {v4 as uuidv4} from 'uuid'
 export default function Login({onIdSubmit}) {
 
     const idRef = useRef()
+    const idName = useRef()
 
     const handleSubmit = (e) => {
         e.preventDefault()
 
-        onIdSubmit(idRef.current.value)
+        onIdSubmit({id:idRef.current.value, name: idName.current.value})
     }
 
     const createNewId = () => {
-        onIdSubmit(uuidv4())
+        onIdSubmit({id:uuidv4(),name: uuidv4()})
     }
 
     return (
         <Container className='align-items-center justify-content-center d-flex' style={{height: '90vh'}}>
             <Form className='w-100' onSubmit={handleSubmit}>
+                <Form.Group>
+                    <div className='text-center text-uppercase'>
+                        <Form.Label className='font-weight-bold font'>
+                            Enter Your Name
+                        </Form.Label>
+                    </div>
+                    <Form.Control type='text' ref={idName} required />
+                </Form.Group>
                 <Form.Group>
                     <div className='text-center text-uppercase'>
                         <Form.Label className='font-weight-bold font'>

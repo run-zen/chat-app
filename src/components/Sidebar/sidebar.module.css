@@ -1,0 +1,83 @@
+
+.wrapper {
+    --header-height: 70px;
+    height: 100%;
+    position: relative;
+    border-right: 1px solid #DADADA;
+}
+
+.header {
+    height: var(--header-height);
+    background: var(--header_color);
+    color: white;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.myInfo {
+    margin-left: 5px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    /*border: 1px solid white;*/
+    cursor: pointer;
+    padding: 3px;
+}
+
+.userImg {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    background: #b68301;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.userName {
+    margin-left: 5px;
+}
+
+.userDrawer {
+    position: absolute;
+    top: 0;
+    left: -100% ;
+    width: 100%;
+    height: 100%;
+    /*padding: 10px 5px;*/
+    background: white;
+    /*border: 1px solid red;*/
+    z-index: 5;
+    transition: ease-in 0.25s;
+}
+
+.dheader {
+    height: 100px;
+    background: var(--header_color);
+    display: flex;
+    align-items: flex-end;
+    padding: 5px 10px;
+}
+
+.showDrawer {
+    transition: ease-in 0.25s;
+    left: 0;
+}
+
+.backIcon {
+    padding: 5px;
+    cursor: pointer;
+}
+
+.backIcon::before {
+    font-size: 20px;
+    font-weight: 600 !important;
+    color: white !important;
+}
+
+.main {
+    height: calc(100% - var(--header-height));
+    width: 300px;
+}

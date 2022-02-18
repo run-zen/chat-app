@@ -1,3 +1,25 @@
+:root {
+    --header_color: #1b281b
+}
+
+body {
+    min-width: 500px;
+    overflow: hidden;
+    background: #FAFAFA;
+}
+
+.app {
+    padding: 5px 20px 10px 20px;
+    /*border: 2px solid #DADADA;*/
+    border-radius: 4px;
+    /*box-shadow: 2px 2px 15px 2px #DADADA,-2px 2px 15px 2px #DADADA,2px -2px 15px 2px #DADADA,-2px -2px 15px 2px #DADADA;*/
+    height: calc(100vh);
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    background: #DADADA;
+}
+
 .typeMessage {
     transition: ease-in-out 0.2s;
 }
@@ -29,14 +51,15 @@
 
 .myMessages {
     transition: ease-in-out 0.2s;
+    padding: 10px 0;
 }
 
-.myMessages:hover::-webkit-scrollbar-thumb{
-    background: #232323;
-}
+/*.myMessages:hover::-webkit-scrollbar-thumb{*/
+/*    background: #232323;*/
+/*}*/
 
 .myMessages::-webkit-scrollbar {
-    width: 8px;
+    width: 6px;
 }
 
 /* Track */
@@ -48,10 +71,35 @@
 /* Handle */
 .myMessages::-webkit-scrollbar-thumb {
     background: #afafaf;
-    border-radius: 10px;
+    border-radius: 4px;
 }
 
 /* Handle on hover */
 .myMessages::-webkit-scrollbar-thumb:hover {
-    background: #b30000;
+    background: #232323;
+}
+
+.pointer {
+    cursor: pointer !important;
+}
+
+.bi-bold::before{
+    font-weight: 700 !important;
+}
+
+[class^="Snackbar_snackbar-wrapper"], [class*=" Snackbar_snackbar-wrapper"] {
+    z-index: 1000 !important;
+}
+
+/* overiding bootstrap css*/
+
+.modal {
+    z-index: 100 !important;
+}
+
+.modal-backdrop {
+    z-index: 90 !important;
+}
+.bi-check2,.bi-check2-all {
+    font-size: 15px;
 }

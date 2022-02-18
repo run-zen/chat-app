@@ -1,0 +1,33 @@
+.wrapper {
+    /*border: 1px solid red;*/
+    width: max-content;
+    height: max-content;
+    color: black;
+
+}
+
+
+.header {
+    font-size: 20px;
+    line-height: 26px;
+    text-transform: capitalize;
+    font-weight: 400;
+    border-bottom: 2px solid #969696;
+    margin-bottom: 5px;
+    width: max-content;
+
+}
+
+span {
+    margin-right: 5px;
+}
+.subheader {
+    color: #626262;
+    padding: 0 3px;
+    font-weight: 300;
+}
+
+
+.error {
+    color: red;
+}

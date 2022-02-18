@@ -1,0 +1,8 @@
+.wrapper {
+    height: 100%;
+    /*border: 1px solid crimson;*/
+    padding: 5px 10px;
+    box-sizing: border-box;
+    background: black;
+    color: black;
+}

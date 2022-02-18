@@ -1,48 +1,88 @@
-import React, {useRef} from 'react'
+import React, {Fragment, useRef, useState} from 'react'
 import {Button, Container, Form} from 'react-bootstrap'
-import {v4 as uuidv4} from 'uuid'
+import {useDispatch, useSelector} from "react-redux";
+import {UserActions} from '../redux/reducers/user'
+import {TokenAction} from '../redux/reducers/tokenReducer'
+import FullLoader from "./shared/FullLoader";
+import {chatApi} from "../services/axiosConfig";
+import {API} from "../services/api";
+import {useAlert} from "../context/snackbarContext";
+import {asyncCall} from "../services/utils";
 
-export default function Login({onIdSubmit}) {
+export default function Login() {
 
-    const idRef = useRef()
-    const idName = useRef()
+    const auth = useSelector(state => state.auth)
+    const [loading, setLoading] = useState(false)
+    const [loadingMessage, setloadingMessage] = useState('')
+    const alert = useAlert()
+    const dispatch = useDispatch()
+
+    const passwordRef = useRef()
+    const phoneRef = useRef()
 
     const handleSubmit = (e) => {
         e.preventDefault()
 
-        onIdSubmit({id:idRef.current.value, name: idName.current.value})
+        loginUser()
     }
 
-    const createNewId = () => {
-        onIdSubmit({id:uuidv4(),name: uuidv4()})
+    const loginUser = async () => {
+        alert.close()
+        setLoading(true)
+        setloadingMessage('logging in')
+        const payload = {phone_number: phoneRef.current.value, password: passwordRef.current.value}
+
+        const [res, err] = await asyncCall(chatApi.post, API.login, payload)
+
+        if (res && res.status === 200) {
+            dispatch({
+                type: UserActions.setState,
+                payload: res.data.user
+            })
+            dispatch({
+                type: TokenAction.setState,
+                payload: {token: res.data.access_token}
+            })
+            alert.success('Successfully logged in user', 'Login', 2000)
+        }
+
+        if (err) {
+            alert.error('Invalid Credentials', 'Login')
+        }
+
+        setLoading(false)
+        setloadingMessage('')
     }
 
     return (
-        <Container className='align-items-center justify-content-center d-flex' style={{height: '90vh'}}>
-            <Form className='w-100' onSubmit={handleSubmit}>
-                <Form.Group>
-                    <div className='text-center text-uppercase'>
-                        <Form.Label className='font-weight-bold font'>
-                            Enter Your Name
-                        </Form.Label>
-                    </div>
-                    <Form.Control type='text' ref={idName} required />
-                </Form.Group>
-                <Form.Group>
-                    <div className='text-center text-uppercase'>
-                        <Form.Label className='font-weight-bold font'>
-                            Enter Your ID
-                        </Form.Label>
-                    </div>
-                    <Form.Control type='text' ref={idRef} required />
-                </Form.Group>
-                <Button type={'submit'} className={'mr-2'}>
-                    Login
-                </Button>
-                <Button variant={'secondary'} onClick={createNewId}>
-                    Create New ID
-                </Button>
-            </Form>
-        </Container>
+        <Fragment>
+            <Container className='align-items-center justify-content-center d-flex' style={{height: '90vh'}}>
+                <Form className='w-25' onSubmit={handleSubmit}>
+                    <Form.Group>
+                        <div className='text-center text-uppercase'>
+                            <Form.Label className='font-weight-bold font'>
+                                Phone Number
+                            </Form.Label>
+                        </div>
+                        <Form.Control type='text' ref={phoneRef} required/>
+                    </Form.Group>
+                    <Form.Group>
+                        <div className='text-center text-uppercase'>
+                            <Form.Label className='font-weight-bold font'>
+                                Password
+                            </Form.Label>
+                        </div>
+                        <Form.Control type='password' ref={passwordRef} required/>
+                    </Form.Group>
+                    <Button type={'submit'} className={'mr-2'}>
+                        Login
+                    </Button>
+                </Form>
+            </Container>
+            {
+                loading ?
+                    <FullLoader message={loadingMessage}/> : null
+            }
+        </Fragment>
     )
 }

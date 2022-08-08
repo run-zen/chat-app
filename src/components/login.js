@@ -54,6 +54,34 @@ export default function Login() {
         setloadingMessage('')
     }
 
+    const createUser = async () => {
+        alert.close()
+        setLoading(true)
+        setloadingMessage('creating user')
+        const payload = {phone_number: phoneRef.current.value, password: passwordRef.current.value}
+
+        const [res, err] = await asyncCall(chatApi.post, API.create, payload)
+
+        if (res && res.data && res.data.statuscode === 200) {
+            dispatch({
+                type: UserActions.setState,
+                payload: res.data.data
+            })
+            dispatch({
+                type: TokenAction.setState,
+                payload: {token: res.data.access_token}
+            })
+            alert.success('User Created', 'Login', 2000)
+        }
+
+        if (err) {
+            alert.error('Invalid Credentials', 'Login')
+        }
+
+        setLoading(false)
+        setloadingMessage('')
+    }
+
     return (
         <Fragment>
             <Container className='align-items-center justify-content-center d-flex' style={{height: '90vh'}}>
@@ -77,6 +105,9 @@ export default function Login() {
                     <Button type={'submit'} className={'mr-2'}>
                         Login
                     </Button>
+                    <a type={'button'} className={'mr-2'} onClick={createUser}>
+                        signup
+                    </a>
                 </Form>
             </Container>
             {

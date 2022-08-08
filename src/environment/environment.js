@@ -3,7 +3,7 @@ const test_env = {
 }
 
 const prod_env = {
-    baseUrl: 'https://mainurl'
+    baseUrl: 'https://runzenorg-fastapi-social.herokuapp.com'
 }
 
 let env = test_env

@@ -4,6 +4,7 @@ export const API = {
     'login': '/contacts/login',
 
     // contact
+    'create': '/contacts',
     'get_me': '/contacts/me',
 
     // chats
